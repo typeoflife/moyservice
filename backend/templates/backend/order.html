@@ -1,0 +1,21 @@
+{% extends "backend/base.html" %}
+{% block content %}
+  <p>{{ order }} {{order.device}} {{order.model}}</p>
+
+  <p>Заметки:</p>
+  <p><a href="{% url 'backend:new_entry' order.id %}">добавить заметку</a></p>
+  <ul>
+      {% for entry in entries %}
+        <li>
+            <p>{{ entry.date_added|date:'M d, Y H:i'}}</p>
+            <p>{{ entry.text|linebreaks }}</p>
+            <p>
+                <a href="{% url 'backend:edit_entry' entry.id %}">Изменить заметку</a>
+            </p>
+        </li>
+      {% empty %}
+        <li>Нет заметок для данного заказа</li>
+      {% endfor %}
+  </ul>
+
+{% endblock content %}

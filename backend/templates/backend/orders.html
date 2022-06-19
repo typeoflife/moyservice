@@ -1,0 +1,17 @@
+{% extends "backend/base.html" %}
+{% block content %}
+  <p>Заказы:</p>
+
+  <ul>
+      {% for order in orders %}
+        <li>
+            <a href="{% url 'backend:order' order.id %}">{{ order }} {{order.device}} {{order.model}}</a>
+        </li>
+      {% empty %}
+        <li>На данный момет заказов нет</li>
+      {% endfor %}
+  </ul>
+
+  <a href="{% url 'backend:new_order' %}">Добавить новый заказ</a>
+
+{% endblock content %}
