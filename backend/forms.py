@@ -1,6 +1,7 @@
 from django import forms
 
-from backend.models import Order, Entry
+from backend.models import Order, Entry, Cash
+
 
 class OrderForm(forms.ModelForm):
     class Meta:
@@ -15,3 +16,10 @@ class EntryForm(forms.ModelForm):
         fields = ['text']
         labels = {'text': ''}
         widgets = {'text': forms.Textarea(attrs={'cols': 80})}
+
+
+class CashForm(forms.ModelForm):
+    class Meta:
+        model = Cash
+        fields = ['name']
+        labels = {'name': ''}

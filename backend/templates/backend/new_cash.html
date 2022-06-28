@@ -1,0 +1,11 @@
+{% extends "backend/base.html" %}
+{% block content %}
+  <p>Добавить новую кассу:</p>
+
+  <form action="{% url 'backend:new_cash' %}" method='post'>
+      {% csrf_token %}
+      {{ form.as_p}}
+      <button name="submit">добавить кассу</button>
+  </form>
+
+{% endblock content %}

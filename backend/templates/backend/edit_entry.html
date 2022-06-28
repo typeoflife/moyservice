@@ -3,12 +3,12 @@
 
   <p><a href="{% url 'backend:order' order.id %}">{{ order }}</a></p>
 
-  <p>Редактировать запись:</p>
+  <p>Редактировать комментарий:</p>
 
   <form action="{% url 'backend:edit_entry' entry.id %}" method='post'>
       {% csrf_token %}
       {{ form.as_p}}
-      <button name="submit">редактировать запись</button>
+      <button name="submit">изменить</button>
   </form>
 
 {% endblock content %}

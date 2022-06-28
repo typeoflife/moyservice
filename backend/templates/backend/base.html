@@ -2,6 +2,7 @@
     <a href="{% url 'backend:index' %}">Главная</a> -
     <a href="{% url 'backend:orders' %}">Заказы</a> -
     {% if user.is_authenticated %}
+      <a href="{% url 'backend:all_cash' %}">Касса</a> -
       Привет, {{user.username}}.
       <a href="{% url 'users:logout' %}">Выход</a>
     {% else %}

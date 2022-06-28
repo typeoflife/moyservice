@@ -1,0 +1,17 @@
+{% extends "backend/base.html" %}
+{% block content %}
+  <p>Кассы:</p>
+
+  <ul>
+      {% for cash in all_cash %}
+        <li>
+            <a href="{% url 'backend:cash' cash.id %}">{{ cash }}</a>
+        </li>
+      {% empty %}
+        <li>На данный момент ни одной кассы не создано</li>
+      {% endfor %}
+  </ul>
+
+  <a href="{% url 'backend:new_cash' %}">Добавить новую кассу</a>
+
+{% endblock content %}

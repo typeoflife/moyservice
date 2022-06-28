@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from backend.models import Order, Entry
-from backend.forms import OrderForm, EntryForm
+from backend.models import Order, Entry, Cash
+from backend.forms import OrderForm, EntryForm, CashForm
 
 
 def index(request):
@@ -93,3 +93,37 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'order': order, 'form': form}
     return render(request, 'backend/edit_entry.html', context)
+
+
+@login_required()
+def all_cash(request):
+    all_cash = Cash.objects.filter(user=request.user).order_by('id')
+    context = {'all_cash': all_cash}
+    return render(request, 'backend/all_cash.html', context)
+
+
+@login_required()
+def cash(request, cash_id):
+    cash = Cash.objects.get(id=cash_id)
+    check_order_owner(cash.user, request)
+    context = {'cash': cash}
+    return render(request, 'backend/cash.html', context)
+
+
+@login_required()
+def new_cash(request):
+    """"Создаем кассу"""
+    if request.method != 'POST':
+        # Данные не отправляются, создается пустая форма
+        form = CashForm()
+    else:
+        form = CashForm(data=request.POST)
+        if form.is_valid():
+            new_cash = form.save(commit=False)
+            new_cash.user = request.user
+            form.save()
+            return redirect('backend:all_cash')
+
+    # Вывести пустую иди недействительную форму
+    context = {'form': form}
+    return render(request, 'backend/new_cash.html', context)

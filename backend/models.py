@@ -8,9 +8,9 @@ STATE = (
 
 
 class Order(models.Model):
-    device = models.CharField('Устройство', max_length=100)
-    model = models.CharField('Модель', max_length=100)
-    serial_number = models.CharField('Серийный номер', max_length=100)
+    device = models.CharField(verbose_name='Устройство', max_length=100)
+    model = models.CharField(verbose_name='Модель', max_length=100)
+    serial_number = models.CharField(verbose_name='Серийный номер', max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)
     state = models.CharField(verbose_name='Статус заказа', choices=STATE, max_length=5, default='open')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='topic')
@@ -32,7 +32,7 @@ class Order(models.Model):
 class Entry(models.Model):
     """Информация изученная пользователем по теме"""
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='entry')
-    text = models.TextField()
+    text = models.TextField(verbose_name='Комментарий')
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -43,3 +43,15 @@ class Entry(models.Model):
         if len(self.text) > 50:
             return f'{self.text[:50]}...'
         return self.text
+
+
+class Cash(models.Model):
+    name = models.CharField(verbose_name='Название кассы',max_length=30)
+    money = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cash')
+
+    class Meta:
+        verbose_name_plural = 'cash'
+
+    def __str__(self):
+        return f'{self.name}'
