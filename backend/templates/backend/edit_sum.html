@@ -1,0 +1,14 @@
+{% extends "backend/base.html" %}
+{% block content %}
+
+  <p><a href="{% url 'backend:order' order.id %}">{{ order }}</a></p>
+
+  <p>Изменить сумму заказа:</p>
+
+  <form action="{% url 'backend:edit_sum' order.id %}" method='post'>
+      {% csrf_token %}
+      {{ form.as_p}}
+      <button name="submit">Изменить</button>
+  </form>
+
+{% endblock content %}

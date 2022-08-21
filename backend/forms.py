@@ -23,3 +23,10 @@ class CashForm(forms.ModelForm):
         model = Cash
         fields = ['name']
         labels = {'name': ''}
+
+
+class SumForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['sum']
+        labels = {'sum': ''}

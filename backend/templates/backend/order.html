@@ -1,6 +1,6 @@
 {% extends "backend/base.html" %}
 {% block content %}
-  <p>{{ order }} {{order.device}} {{order.model}} {{order.state}}</p>
+  <p>{{ order }} {{order.device}} {{order.model}} Сумма:  {{order.sum}} р. <a href="{% url 'backend:edit_sum' order.id %}">Изменить сумму</a></p>
 
   <p>Заметки:</p>
   <p><a href="{% url 'backend:new_entry' order.id %}">добавить комментарий</a></p>
